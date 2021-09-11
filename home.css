@@ -1,0 +1,212 @@
+@import url('https://fonts.googleapis.com/css2?family=Heebo:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;500&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    color: #21243D;
+    
+}
+
+
+.land {
+    margin-left: 0rem;
+    margin-top: 5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    justify-content:space-around;
+   
+    padding-bottom: 3rem;
+}
+
+.land .text {
+    /* margin-right: 10rem;*/
+    justify-content: start;
+    
+} 
+
+.text .fd {
+    white-space: pre-line;
+}
+
+.text h1 {
+    font-family: 'Heebo', sans-serif;
+    
+}
+
+.text p {
+    margin: 1rem 0;
+    font-family: 'Noto Sans JP', sans-serif;
+}
+
+.text .download_btn {
+    background-color: #FF6464;
+    border: 1px #fff;
+}
+
+.land .img img {
+    width: 100%;
+    clip-path: circle();
+    place-content: end;
+    object-fit: cover;
+    box-shadow: 2px 2px 2px 1px #00A8CC;
+}
+
+.recent {
+    background-color: #EDF7FA;
+    margin-bottom: 3rem;
+    padding-bottom: 1rem;
+}
+
+.recent .title {
+    display: flex;
+    justify-content: center;
+    justify-content: space-around;
+}
+
+.recent .title p a {
+    text-decoration: none;
+    color: #00A8CC;
+    font-family: 'Noto Sans JP', sans-serif;
+}
+
+.recent .card-1 {
+    display: flex;
+    justify-content: center;
+    justify-content: space-around;
+}
+
+.featured .title {
+   margin-left: 9rem;
+    font-size: 18px;
+    font-family: 500;
+    font-family: 'Heebo', sans-serif;
+}
+
+
+
+.blog_card{
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;
+  
+    
+   
+}
+.blog_card .img img{
+    width: 20vw;
+    border-radius: .6rem;
+   margin-left: 9rem;
+   margin-right: 1rem;
+   margin-top: 2rem;
+}
+.blog_card .text .b-title{
+   
+    color: #21243D;
+    font-size: 26px;
+    font-family: 700;
+    font-family: 'Heebo', sans-serif;
+}
+.blog_card .text .subtitle{
+    padding: .5rem;
+    color: #7a7676;
+    font-weight: 500;
+    font-family: 'Heebo', sans-serif;
+}
+.blog_card .text .subtitle .year{
+    background-color: #21243D;
+    border-radius: .2rem;
+    padding: 3px 6px;
+    color: #fff;
+    margin-left: 1rem;
+}
+.blog_card .text .des{
+    margin-top: 1rem;
+    text-align: start;
+    padding-right: 6rem;
+}
+.footer{
+    padding: 2rem;
+    color: #21243D;
+    text-align: center;
+}
+.footer .icon{
+    margin-top: 2rem; 
+}
+.footer .icon a{
+    text-decoration: none;
+    font-size: 30px;
+    justify-content:space-around;
+    margin-right: 1.5rem;
+    color: #21243D;
+}
+
+@media screen and (max-width:425px) {
+
+    .land{
+        flex-direction: column-reverse;
+       
+    }
+    .land .text{
+        text-align: center;
+        margin: 1rem;
+    }
+    .recent .card-1{
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        
+    }
+    .recent .card-1 .card_1{
+      margin-bottom: 1rem;
+    }
+    .blog_card{
+        flex-direction: column;
+        /* box-shadow: 2px 2px 2px 2px #7a7676; */
+        margin-left: 5rem;
+    }
+    .blog_card .img img{
+        width:90%;
+        margin-left: -1rem;
+    }
+    .blog_card .text .des{
+        text-align: start;
+    }
+    .featured .title{
+        text-align: center;
+        margin-left: -1rem;
+    }
+    .featured{
+        margin-left: -3rem;
+    }
+} 
+@media screen and (max-width:669px) {
+    .card-1{
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        justify-content: space-around
+        ;
+    }
+    .card-1 .card_1{
+        margin-bottom: 1rem;
+    }
+    /* .featured{
+        margin-left: 1rem;
+    } */
+
+   
+
+
+}
+/* @media screen and (max-width:400px) {
+    .recent .card-1{
+       margin-left: 3rem;
+    }
+
+} */
