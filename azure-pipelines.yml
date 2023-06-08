@@ -42,7 +42,7 @@ stages:
                     appType: 'webAppLinux'
                     WebAppName: 'pythonwebap'
                   
-                    packageForLinux: '$(System.DefaultWorkingDirectory)/*.zip'
+                    packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip'
 
 # steps:
 # - task: ArchiveFiles@2
