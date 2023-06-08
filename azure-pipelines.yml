@@ -8,29 +8,30 @@ trigger:
 pool:
   vmImage: ubuntu-latest
 
-stages:
-  - stage: Build
-    displayName: Build
-    jobs:
-    - job: BuildJob
-      steps:
+# stages:
+#   - stage: Build
+#     displayName: Build
+#     jobs:
+#     - job: BuildJob
+#       steps:
         
-      - task: ArchiveFiles@2
-        inputs:
-          rootFolderOrFile: '$(System.DefaultWorkingDirectory)'
-          includeRootFolder: false
-          archiveType: 'zip'
-          archiveFile: '$(System.DefaultWorkingDirectory)/$(Build.BuildId).zip'
-          replaceExistingArchive: true
+#       - task: ArchiveFiles@2
+#         inputs:
+#           rootFolderOrFile: '$(System.DefaultWorkingDirectory)'
+#           includeRootFolder: false
+#           archiveType: 'zip'
+#           archiveFile: '$(System.DefaultWorkingDirectory)/$(Build.BuildId).zip'
+#           replaceExistingArchive: true
            
-      - task: AzureRmWebAppDeployment@4
-        inputs:
-          ConnectionType: 'AzureRM'
-          azureSubscription: 'Free Trial (69eacb20-5fab-41c1-a0c3-d64f243913fb)'
-          appType: 'webAppLinux'
-          WebAppName: 'pythonwebap'
+#       - task: AzureRmWebAppDeployment@4
+#         inputs:
+#           ConnectionType: 'AzureRM'
+#           azureSubscription: 'Free Trial (69eacb20-5fab-41c1-a0c3-d64f243913fb)'
+#           appType: 'webAppLinux'
+#           WebAppName: 'pythonwebap'
         
-          packageForLinux: '$(System.DefaultWorkingDirectory)/*.zip'
+#           packageForLinux: '$(System.DefaultWorkingDirectory)/*.zip'
+# --------------------------------------------------------
   # - stage: Deploy
   #   displayName: 'Deploy Web App'
   #   dependsOn: Build
@@ -65,3 +66,24 @@ stages:
 #     appType: 'webAppLinux'
 #     WebAppName: 'pythonwebap'
 #     packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip'
+# ---------------------------------------------------------------------
+stages:
+ - stage: DeployDevStage
+   displayName: Deployment
+   jobs:
+    - job: DeployAzure
+      displayName: jobs
+      steps:
+        
+      - task: DownloadPipelineArtifact@2
+        inputs:
+          buildType: 'current'
+          artifactName: 'drop'
+          targetPath: '$(System.DefaultWorkingDirectory)'
+      - task: AzureWebApp@1
+        inputs:
+          azureSubscription: 'Free Trial (69eacb20-5fab-41c1-a0c3-d64f243913fb)'
+          appType: 'webAppLinux'
+          appName: 'pythonwebap'
+          package: '$(System.DefaultWorkingDirectory)/**/*.zip'
+          
