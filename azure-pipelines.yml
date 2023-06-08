@@ -56,7 +56,9 @@ stages:
                     azureSubscription: 'Free Trial (69eacb20-5fab-41c1-a0c3-d64f243913fb)'
                     appType: 'webAppLinux'
                     WebAppName: 'pythonwebap'
-                    packageForLinux: $(Pipeline.Workspace)/drop/$(Build.BuildId).zip
+                    # packageForLinux: $(Pipeline.Workspace)/drop/$(Build.BuildId).zip
+                    packageForLinux: '$(System.DefaultWorkingDirectory)/*.zip'
+
 # steps:
 # - task: ArchiveFiles@2
 #   inputs:
