@@ -28,7 +28,7 @@ stages:
   - stage: Build
     displayName: Build
     jobs:
-    - job: Build Job
+    - job: BuildJob
       steps:
         
       - task: ArchiveFiles@2
