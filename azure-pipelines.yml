@@ -6,19 +6,67 @@
 trigger:
 - master
 
+variables:
+  # Azure Resource Manager connection created during pipeline creation
+  azureServiceConnectionId: 'd87f38cf-704e-4955-8331-b9233a619fc4'
+
+  # Web app name
+  webAppName: 'webap'
+
+ 
+
+  # Environment name
+  environmentName: 'webap'
+
+  # Project root folder. Point to the folder containing manage.py file.
+  projectRoot: $(System.DefaultWorkingDirectory)s
+
 pool:
   vmImage: ubuntu-latest
 
-steps:
-- task: ArchiveFiles@2
-  inputs:
-    rootFolderOrFile: '$(build.sourcesDirectory)'
-    includeRootFolder: false
-- task: PublishBuildArtifacts@1
-- task: AzureRmWebAppDeployment@4
-  inputs:
-    ConnectionType: 'AzureRM'
-    azureSubscription: 'Free Trial (69eacb20-5fab-41c1-a0c3-d64f243913fb)'
-    appType: 'webAppLinux'
-    WebAppName: 'pythonwebap'
-    packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip'
+stages:
+  - stage: Build
+    displayName: Build
+    jobs:
+    - job: Build Job
+      steps:
+        
+      - task: ArchiveFiles@2
+        inputs:
+          rootFolderOrFile: '$(projectRoot)'
+          includeRootFolder: true
+          archiveType: 'zip'
+          archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
+          replaceExistingArchive: true
+           
+  - stage: Deploy
+    displayName: 'Deploy Web App'
+    dependsOn: Build
+    condition: succeeded()
+    jobs:
+    - deployment: DeploymentJob
+      environment: $(environmentName)
+      strategy:
+        runOnce:
+          deploy:
+            steps:
+                - task: AzureRmWebAppDeployment@4
+                  inputs:
+                    ConnectionType: 'AzureRM'
+                    azureSubscription: 'Free Trial (69eacb20-5fab-41c1-a0c3-d64f243913fb)'
+                    appType: 'webAppLinux'
+                    WebAppName: 'pythonwebap'
+                    packageForLinux: $(Pipeline.Workspace)/drop/$(Build.BuildId).zip
+# steps:
+# - task: ArchiveFiles@2
+#   inputs:
+#     rootFolderOrFile: '$(build.sourcesDirectory)'
+#     includeRootFolder: false
+# - task: PublishBuildArtifacts@1
+# - task: AzureRmWebAppDeployment@4
+#   inputs:
+#     ConnectionType: 'AzureRM'
+#     azureSubscription: 'Free Trial (69eacb20-5fab-41c1-a0c3-d64f243913fb)'
+#     appType: 'webAppLinux'
+#     WebAppName: 'pythonwebap'
+#     packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip'
