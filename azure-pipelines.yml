@@ -17,3 +17,9 @@ steps:
     archiveFile: '$(System.DefaultWorkingDirectory)/$(Build.BuildId).zip'
     replaceExistingArchive: true
 
+- task: AzureWebApp@1
+  inputs:
+    azureSubscription: 'Free Trial (69eacb20-5fab-41c1-a0c3-d64f243913fb)'
+    appType: 'webAppLinux'
+    appName: 'pythonwebap'
+    package: '$(System.DefaultWorkingDirectory)/*.zip'
