@@ -1,25 +1,9 @@
-# HTML
-# Archive your static HTML project and save it with the build record.
-# Add steps that build, run tests, deploy, and more:
-# https://aka.ms/yaml
+
 
 trigger:
 - master
 
-variables:
-  # Azure Resource Manager connection created during pipeline creation
 
-
-  # Web app name
-  webAppName: 'webap'
-
- 
-
-  # Environment name
-  environmentName: 'webap'
-
-  # Project root folder. Point to the folder containing manage.py file.
-  projectRoot: $(System.DefaultWorkingDirectory)
 
 pool:
   vmImage: ubuntu-latest
@@ -33,10 +17,10 @@ stages:
         
       - task: ArchiveFiles@2
         inputs:
-          rootFolderOrFile: '$(projectRoot)'
-          includeRootFolder: true
+          rootFolderOrFile: '$(System.DefaultWorkingDirectory)'
+          includeRootFolder: false
           archiveType: 'zip'
-          archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
+          archiveFile: '$(System.DefaultWorkingDirectory)/$(Build.BuildId).zip'
           replaceExistingArchive: true
            
   - stage: Deploy
@@ -57,8 +41,8 @@ stages:
                     azureSubscription: 'Free Trial (69eacb20-5fab-41c1-a0c3-d64f243913fb)'
                     appType: 'webAppLinux'
                     WebAppName: 'pythonwebap'
-                    # packageForLinux: $(Pipeline.Workspace)/drop/$(Build.BuildId).zip
-                    packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip'
+                  
+                    packageForLinux: '$(System.DefaultWorkingDirectory)/*.zip'
 
 # steps:
 # - task: ArchiveFiles@2
